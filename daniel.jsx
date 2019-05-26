@@ -11,15 +11,13 @@
         var doc = open(fileList[i]);
         var options = new BMPSaveOptions;
         options.depth = BMPDepthType.BMP_R5G6B5;
-        var path = basePath + doc.name.replace('psd', 'bmp');
+        var path = basePath + '\\' + doc.name.replace('psd', 'bmp');
         $.writeln(path)
         var bmpFile = new File(path);
         try {
             doc.saveAs(bmpFile, options, true, Extension.LOWERCASE);
         }
         catch(err) {
-            //console.log("Error");
-            //alert("can't save");
             $.writeln("error")
         }
         finally {
