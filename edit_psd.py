@@ -6,6 +6,7 @@
  
 import win32com.client
 import os
+import time
  
 # Change to match your root folder
 psdRoot = r'D:\test'
@@ -19,9 +20,11 @@ if (__name__ == '__main__'):
  
    # Photoshop actually exposes several different COM interfaces,
    # including one specifically for classes defining export options.
-   options = win32com.client.Dispatch('Photoshop.ExportOptionsSaveForWeb')
-   options.Format = 13   # PNG
-   options.PNG8 = False  # Sets it to PNG-24 bit
+   options = win32com.client.Dispatch('Photoshop.BMPSaveOptions')
+   options.depth = BMPDepthType.BMP_R5G6B5
+   options.alphaChannels = False
+
+   # options.PNG8 = False  # Sets it to PNG-24 bit
  
    # Get all PSDs under root dir
    psdFiles = []
@@ -38,22 +41,32 @@ if (__name__ == '__main__'):
       layerSets = doc.LayerSets
  
       # if (len(layerSets) > 0):
-      print 'here'
+      # print 'here'
       # First hide all root-level layers
-      for layer in doc.Layers:
-         layer.Visible = True
-      # ... and layerSets
-      for layerSet in layerSets:
-         layerSet.Visible = True
-      
-      pngFile = os.path.splitext(psdFile)[0] + '.png'
+      # for layer in doc.Layers:
+      #    layer.Visible = True
+      # # ... and layerSets
+      # for layerSet in layerSets:
+      #    layerSet.Visible = True
+      # extension = win32com.client.Dispatch('Photoshop.Extension.LOWERCASE')
+      bmpFile = os.path.splitext(psdFile)[0] + '.bmp'
+      print bmpFile
+      try: 
+         doc.SaveAs(psdFile, options, False, 1) 
+      except:
+         print "can't save"
+      finally:
+         doc.Close(2)
+      # pngFile = os.path.splitext(psdFile)[0] + '.bmp'
+      # print pngFile
             # Export PNG for this layer Group
-      if (not os.path.exists(pngFile)):
-         doc = psApp.Open(psdFile)
-         doc.Export(ExportIn=pngFile, ExportAs=2, Options=options)
-         print 'exporting:', pngFile
-      else:
-         print 'skipping newer file:', psdFile
+      # if (not os.path.exists(pngFile)):
+      #    doc = psApp.Open(psdFile)
+         
+      #    doc.SaveAs( psdFile , options ) 
+      #    print 'exporting:', pngFile
+      # else:
+      #    print 'skipping newer file:', psdFile
       # Loop through each LayerSet (aka Group)
       # for layerSet in layerSets:
       #    lsName = layerSet.Name.lower()
@@ -84,5 +97,5 @@ if (__name__ == '__main__'):
       #       layerSet.Visible = False
 
          # Close PSD without saving
-      doc.Close(2)
+      # doc.Close(2)
       print 'the end'
