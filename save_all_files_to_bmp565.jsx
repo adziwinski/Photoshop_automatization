@@ -1,5 +1,5 @@
 ﻿(function () {
-    var basePath = "D:\\test";
+    var basePath = Folder.selectDialog( "Please select source folder");  
     var folder = new Folder(basePath);
     if(!folder) {
         return;
