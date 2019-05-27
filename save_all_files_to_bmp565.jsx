@@ -1,5 +1,6 @@
 ﻿(function () {
     var basePath = Folder.selectDialog( "Please select source folder");  
+    //var basePath = 'D:\\test'
     var folder = new Folder(basePath);
     if(!folder) {
         return;
@@ -11,6 +12,7 @@
         var doc = open(fileList[i]);
         var options = new BMPSaveOptions;
         options.depth = BMPDepthType.BMP_R5G6B5;
+        doc.rotateCanvas(180);
         var path = basePath + '\\' + doc.name.replace('psd', 'bmp');
         $.writeln(path)
         var bmpFile = new File(path);
