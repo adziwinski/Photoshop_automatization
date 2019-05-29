@@ -6,7 +6,7 @@
         return;
     } 
     var fileList = folder.getFiles(/\.(psd)$/i)
-	const DIRS =['POLSKIE', 'ANGIELSKIE', 'NIEMIECKIE', 'ROSYJSKIE', 'UKRAINSKIE', 'FRANCUSKIE', 'HISZPANSKIE', 'WLOSKIE', ]
+	const DIRS =['POLSKIE', 'ANGIELSKIE', 'NIEMIECKIE', 'ROSYJSKIE', 'UKRAINSKIE', 'FRANCUSKIE', 'HISZPANSKIE', 'WLOSKIE' ]
 	var newFileName;
 	var exportPath = basePath + '\\BMP\\' ;
 

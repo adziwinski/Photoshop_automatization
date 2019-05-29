@@ -1,5 +1,5 @@
 #call this file with gitbash in repo directory
-cd ../
+# cd ../
 mkdir BMP
 cd BMP
 mkdir POLSKIE
