@@ -1,6 +1,6 @@
 ﻿(function () {
-    //var basePath = Folder.selectDialog( "Please select source folder");  
-    var basePath = 'D:\\scripts_for_photoshop'
+    var basePath = Folder.selectDialog( "Please select source folder");  
+    //var basePath = 'D:\\scripts_for_photoshop'
     var folder = new Folder(basePath);
     if(!folder) {
         return;
@@ -12,7 +12,7 @@
     for(var i = 0 ;i < fileList.length;i++) {
         $.writeln(i + "Files left")
         var doc = open(fileList[i]);
-        goTextExport2(doc,doc,"")
+//        goTextExport2(doc,doc,"")
         doc.close(SaveOptions.SAVECHANGES);
     }
 
@@ -27,7 +27,7 @@ function goTextExport2(el, fileOut, path)
      $.writeln("There is " + layerSetCounter + "layerSet");		
     
     $.writeln(el.layerSets[0].layers[0].kind == LayerKind.TEXT)
-    el.layerSets[0].layers[0].textItem.contents = "dupa"
+    el.layerSets[0].layers[0].textItem.contents = "moj_test"
 	for (var layerIndex = layers.length; layerIndex > 0; layerIndex--)
 	{
 		
@@ -43,11 +43,15 @@ function goTextExport2(el, fileOut, path)
 		//else{	
             if ( (currentLayer.visible) && (currentLayer.kind == LayerKind.TEXT) )
             {
-                currentLayer.textItem.contents = "Agnieszka";
+                currentLayer.textItem.contents = "teraz";
                 $.writeln(currentLayer.textItem.contents)
             }
        // }
 	}	
+}
+
+function foo (layerSets){
+	if(layesSets.el.layerSets.length)
 }
 
 // function goTextExport2(el, fileOut, path) 
