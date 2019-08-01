@@ -7,23 +7,24 @@
     } 
     var fileList = folder.getFiles(/\.(psd)$/i)
 
-
     $.writeln("Files to process ..." + fileList.length)
     for(var i = 0 ;i < fileList.length;i++) {
         $.writeln(i + "Files left")
         var doc = open(fileList[i]);
-        goTextExport2(doc,doc,"")
-        doc.close(SaveOptions.SAVECHANGES);
+        doc.rotateCanvas(180);
+        goTextExport2(doc, "", basePath)
+        doc.rotateCanvas(180);
+        doc.close(SaveOptions.DONOTSAVECHANGES);
     }
 
 })();
 
-function goTextExport2(el, fileOut, path) 
+function goTextExport2(doc,  path, basePath) 
 {
 			
 	// Get the layers
-	 var layers = el.layers;
-     var layerSetCounter = el.layerSets.length;
+	 var layers = doc.layers;
+     var layerSetCounter =doc.layerSets.length;
      $.writeln("There is " + layerSetCounter + " layerSet");		
     
 	for (var layerIndex = layers.length; layerIndex > 0; layerIndex--)
@@ -36,38 +37,24 @@ function goTextExport2(el, fileOut, path)
 
         if (language.localeCompare("PL")==0){
                 $.writeln("polski");
-                disable_other_layers(el, layers, currentLayer);
-                save_doc_to_BMP(el, "POLSKIE");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "POLSKIE", basePath);
         }
         else if (language.localeCompare("EN")==0){
                 $.writeln("angielski");
-                disable_other_layers(el, layers, currentLayer);
-                
-                /*
-                for (var layerIndex2 = layers.length; layerIndex2 > 0; layerIndex2--)
-                {
-                    var currentLayer2 = layers[layerIndex2-1];
-                    currentLayer2.visible = false;
-                }
-                currentLayer.visible = true;*/
-                save_doc_to_BMP(el, "ANGIELSKIE");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "ANGIELSKIE", basePath);
         }
 	}	
 }
 
-function foo (layerSets){
-	if(layesSets.el.layerSets.length)
-}
-
-function save_doc_to_BMP(doc, directory){
-    var basePath = 'D:\\scripts_for_photoshop'
+function save_doc_to_BMP(doc, directory, basePath){
 //	const DIRS =['POLSKIE', 'ANGIELSKIE', 'NIEMIECKIE', 'ROSYJSKIE', 'UKRAINSKIE', 'FRANCUSKIE', 'HISZPANSKIE', 'WLOSKIE' ]
 	var newFileName;
 	var exportPath = basePath + '\\BMP\\' ;
     
     var options = new BMPSaveOptions;
     options.depth = BMPDepthType.BMP_R5G6B5;
-    doc.rotateCanvas(180);
     newFileName = doc.name.replace('psd', 'bmp');
     myPath = exportPath + directory +'\\'+ newFileName;
     $.writeln(myPath);
@@ -82,18 +69,16 @@ function save_doc_to_BMP(doc, directory){
 
 function disable_other_layers(doc, layers, currentLayer){
 
-    for (var layerIndex2 = layers.length; layerIndex2 > 0; layerIndex2--)
+    for (var layerIndex = layers.length; layerIndex > 0; layerIndex--)
     {
-        $.writeln(currentLayer2.name.substring(0))
-        //if(currentLayer2.name.localeCompare("Tlo",'en', {sensitivity: 'base'}))==0){
-     //   if(currentLayer2.name.localeCompare("Tlo")==0){
-            var currentLayer2 = layers[layerIndex2-1];
+        var currentLayer2 = layers[layerIndex-1];
+
+        if((currentLayer2.name.localeCompare("Tło")==0) || (currentLayer2.name.substring(0,3).localeCompare("Oth")==0)){
+            currentLayer2.visible = true;
+        }
+    else{
             currentLayer2.visible = false;
-     // }
-    //else{
-       // var currentLayer2 = layers[layerIndex2-1];
-//currentLayer2.visible = true;
-     //  }
+      }
     }
     currentLayer.visible = true;
 }

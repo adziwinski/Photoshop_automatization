@@ -1,6 +1,6 @@
 ﻿(function () {
-    var basePath = Folder.selectDialog( "Please select source folder");  
-    //var basePath = 'D:\\scripts_for_photoshop'
+    //var basePath = Folder.selectDialog( "Please select source folder");  
+    var basePath = 'D:\\scripts_for_photoshop'
     var folder = new Folder(basePath);
     if(!folder) {
         return;
@@ -12,7 +12,7 @@
     for(var i = 0 ;i < fileList.length;i++) {
         $.writeln(i + "Files left")
         var doc = open(fileList[i]);
-//        goTextExport2(doc,doc,"")
+        goTextExport2(doc,doc,"")
         doc.close(SaveOptions.SAVECHANGES);
     }
 
