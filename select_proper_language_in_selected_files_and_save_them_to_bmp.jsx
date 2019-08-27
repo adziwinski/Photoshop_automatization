@@ -5,6 +5,10 @@
         $.writeln("it's not a file")
         retrun;
     }
+
+    //const shell = require('shelljs')
+
+    //shell.exec(D/git/script_for_psd_files/mkdir.sh)
  
     for(var i = 0 ;i < myFiles.length;i++) {
         var doc = open(myFiles[i]);
@@ -32,16 +36,49 @@ function goTextExport2(doc,  path, basePath)
 		var currentLayer = layers[layerIndex-1];
 
         var language = currentLayer.name.substring(0, 2);
+        var language_is_big_letter = currentLayer.name.substring(0, 4);
 
         if (language.localeCompare("PL")==0){
-         //       $.writeln("polski");
+                $.writeln("polski");
                 disable_other_layers(doc, layers, currentLayer);
                 save_doc_to_BMP(doc, "POLSKIE", basePath);
         }
         else if (language.localeCompare("EN")==0){
-           //     $.writeln("angielski");
+                $.writeln("angielski");
                 disable_other_layers(doc, layers, currentLayer);
                 save_doc_to_BMP(doc, "ANGIELSKIE", basePath);
+        }
+        else if (language.localeCompare("DE")==0){
+                $.writeln("niemiecki");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "NIEMIECKIE", basePath);
+        }
+        else if (language.localeCompare("FR")==0){
+                $.writeln("francuski");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "FRANCUSKIE", basePath);
+        }
+         else if (language.localeCompare("ES")==0){
+           //     $.writeln("angielski");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "HISZPANSKIE", basePath);
+        }
+         else if (language.localeCompare("IT")==0){
+           //     $.writeln("angielski");
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "WLOSKIE", basePath);
+        }
+         else if (language.localeCompare("RU")==0){
+             if(language_is_big_letter.localeCompare("RU_D")==0){
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "ROSYJSKIE", basePath);
+            }
+        }
+        else if (language.localeCompare("UE")==0){
+             if(language_is_big_letter.localeCompare("UE_D")==0){
+                disable_other_layers(doc, layers, currentLayer);
+                save_doc_to_BMP(doc, "UKRAINSKIE", basePath);
+            }
         }
 	}	
 }

@@ -1,6 +1,6 @@
 ﻿(function () {
-    //var basePath = Folder.selectDialog( "Please select source folder");  
-    var basePath = 'D:\\scripts_for_photoshop'
+    var basePath = Folder.selectDialog( "Please select source folder");  
+   // var basePath = 'D:\\scripts_for_photoshop'
     var folder = new Folder(basePath);
     if(!folder) {
         return;
